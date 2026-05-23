@@ -1,5 +1,7 @@
+import Layout from "../components/Layout"
 export default function Reports() {
   return (
+    <Layout>
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-50 p-8 lg:p-10">
 
       <h1 className="text-5xl font-extrabold mb-10">
@@ -75,5 +77,6 @@ export default function Reports() {
       </div>
 
     </div>
+    </Layout>
   )
 }

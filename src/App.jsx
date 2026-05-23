@@ -4,6 +4,9 @@ import LandingPage from "./pages/LandingPage"
 import Dashboard from "./pages/Dashboard"
 import Reports from "./pages/Reports"
 import Settings from "./pages/Settings"
+import Profile from "./pages/Profile"
+import Notifications from "./pages/Notifications"
+import Help from "./pages/Help"
 
 export default function App() {
   return (
@@ -16,6 +19,14 @@ export default function App() {
       <Route path="/reports" element={<Reports />} />
 
       <Route path="/settings" element={<Settings />} />
+
+      <Route path="/profile" element={<Profile />} />
+
+      <Route path="/notifications" element={<Notifications />} />
+
+      <Route path="/settings" element={<Settings />} />
+
+      <Route path="/help" element={<Help />} />
 
     </Routes>
   )

@@ -1,305 +1,350 @@
-import { NavLink } from "react-router-dom"
+import Layout from "../components/Layout"
 import {
-  FaFileMedical,
-  FaChartLine,
-  FaCog
-} from "react-icons/fa"
+  Activity,
+  ShieldAlert,
+  FileText,
+  Users
+} from "lucide-react"
+
 export default function Dashboard() {
+
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-gray-100 to-blue-50">
 
-      {/* Sidebar */}
-<div className="w-72 bg-blue-700 text-white p-6">
+    <Layout>
 
-  <h1 className="text-3xl font-bold mb-10">
-    Healthcare AI
-  </h1>
+      <div className="space-y-6">
 
-  <div className="flex flex-col gap-6 text-lg">
+        {/* Top Header */}
 
-    <NavLink
-      to="/dashboard"
-      className={({ isActive }) =>
-        isActive
-          ? "flex items-center gap-3 text-left p-3 rounded-xl bg-blue-600 text-white"
-          : "flex items-center gap-3 text-left p-3 rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300"
-      }
-    >
-      <FaChartLine />
-      Dashboard
-    </NavLink>
+        <div className="flex justify-between items-center mb-8">
 
-    <NavLink
-      to="/reports"
-      className={({ isActive }) =>
-        isActive
-          ? "flex items-center gap-3 text-left p-3 rounded-xl bg-blue-600 text-white"
-          : "flex items-center gap-3 text-left p-3 rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300"
-      }
-    >
-      <FaFileMedical />
-      Reports
-    </NavLink>
+          <div>
 
-    <NavLink
-  to="/settings"
-  className={({ isActive }) =>
-    isActive
-      ? "flex items-center gap-3 text-left p-3 rounded-xl bg-blue-600 text-white"
-      : "flex items-center gap-3 text-left p-3 rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300"
-  }
->
-  <FaCog />
-  Settings
-</NavLink>
+            <h1 className="text-4xl font-bold text-[#0F172A]">
+              Dashboard
+            </h1>
 
-  </div>
+            <p className="text-gray-500 mt-2">
+              Welcome back to the healthcare AI system.
+            </p>
 
-</div>
+          </div>
 
-      {/* Main Content */}
-      <div className="flex-1 p-8 lg:p-10">
+          <button className="bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-6 py-3 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300">
 
-        <h1 className="text-5xl font-extrabold tracking-tight mb-10">
-          Healthcare Dashboard
-        </h1>
-        {/* Top Stats */}
+            Emergency Action
 
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          </button>
 
-  <div className="bg-white p-5 rounded-2xl shadow-lg">
+        </div>
 
-    <p className="text-gray-500">
-      Total Patients
-    </p>
+        {/* Stats Cards */}
 
-    <h2 className="text-3xl font-bold mt-2">
-      1,248
-    </h2>
-
-  </div>
-
-  <div className="bg-white p-5 rounded-2xl shadow-lg">
-
-    <p className="text-gray-500">
-      Critical Cases
-    </p>
-
-    <h2 className="text-3xl font-bold mt-2 text-red-500">
-      32
-    </h2>
-
-  </div>
-
-  <div className="bg-white p-5 rounded-2xl shadow-lg">
-
-    <p className="text-gray-500">
-      Reports Uploaded
-    </p>
-
-    <h2 className="text-3xl font-bold mt-2">
-      542
-    </h2>
-
-  </div>
-
-  <div className="bg-white p-5 rounded-2xl shadow-lg">
-
-    <p className="text-gray-500">
-      Doctors Available
-    </p>
-
-    <h2 className="text-3xl font-bold mt-2 text-green-600">
-      18
-    </h2>
-
-  </div>
-
-</div>
-
-        {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-          {/* Card 1 */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+          <div
+            className="
+            bg-white/80
+            backdrop-blur-lg
+            rounded-3xl
+            p-6
+            shadow-lg
+            border border-white/40
+            hover:-translate-y-1
+            transition-all duration-300
+          "
+          >
 
-            <h2 className="text-xl font-semibold mb-3">
-              Patient Name
-            </h2>
+            <div className="flex items-center justify-between">
 
-            <p className="text-gray-600">
-              Ravi Kumar
+  <h2 className="text-gray-500">
+    Total Patients
+  </h2>
+
+  <Users size={28} className="text-blue-500" />
+
+</div>
+
+            <p className="text-4xl font-bold mt-4 text-[#0F172A]">
+              1,284
+            </p>
+
+            <p className="text-green-500 mt-2 font-medium">
+              +12% this week
             </p>
 
           </div>
 
-          {/* Card 2 */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+          <div
+            className="
+            bg-white/80
+            backdrop-blur-lg
+            rounded-3xl
+            p-6
+            shadow-lg
+            border border-white/40
+            hover:-translate-y-1
+            transition-all duration-300
+          "
+          >
 
-            <h2 className="text-xl font-semibold mb-3">
-              Symptoms
-            </h2>
+            <div className="flex items-center justify-between">
 
-            <p className="text-gray-600">
-              Fever, Chest Pain
+  <h2 className="text-gray-500">
+    Emergency Cases
+  </h2>
+
+  <ShieldAlert size={28} className="text-red-500" />
+
+</div>
+
+            <p className="text-4xl font-bold mt-4 text-red-500">
+              32
+            </p>
+
+            <p className="text-red-400 mt-2 font-medium">
+              High priority alerts
             </p>
 
           </div>
 
-          {/* Card 3 */}
-          <div className="bg-red-500 text-white p-6 rounded-2xl shadow-lg">
+          <div
+            className="
+            bg-white/80
+            backdrop-blur-lg
+            rounded-3xl
+            p-6
+            shadow-lg
+            border border-white/40
+            hover:-translate-y-1
+            transition-all duration-300
+          "
+          >
 
-            <h2 className="text-xl font-semibold mb-3">
-              Urgency
-            </h2>
+            <div className="flex items-center justify-between">
 
-            <p>
-              High Risk
+  <h2 className="text-gray-500">
+    Doctors Available
+  </h2>
+
+  <Activity size={28} className="text-green-500" />
+
+</div>
+
+            <p className="text-4xl font-bold mt-4 text-blue-600">
+              24
+            </p>
+
+            <p className="text-blue-400 mt-2 font-medium">
+              Active specialists
             </p>
 
           </div>
 
-          {/* Card 4 */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+          <div
+            className="
+            bg-white/80
+            backdrop-blur-lg
+            rounded-3xl
+            p-6
+            shadow-lg
+            border border-white/40
+            hover:-translate-y-1
+            transition-all duration-300
+          "
+          >
 
-            <h2 className="text-xl font-semibold mb-3">
-              Doctor Assigned
-            </h2>
+            <div className="flex items-center justify-between">
 
-            <p className="text-gray-600">
-              Dr. Sharma
+  <h2 className="text-gray-500">
+    Reports Uploaded
+  </h2>
+
+  <FileText size={28} className="text-cyan-500" />
+
+</div>
+
+            <p className="text-4xl font-bold mt-4 text-[#0F172A]">
+              563
+            </p>
+
+            <p className="text-green-500 mt-2 font-medium">
+              AI analyzed reports
             </p>
 
           </div>
 
         </div>
-        {/* Patient Table */}
 
-<div className="mt-12 bg-white p-6 rounded-2xl shadow-lg">
+        {/* Emergency Section */}
 
-  <h2 className="text-2xl font-bold mb-6">
-    Recent Patients
-  </h2>
+        <div
+          className="
+          bg-red-50
+          rounded-3xl
+          p-8
+          shadow-lg
+          border border-red-200
+        "
+        >
 
-  <table className="w-full">
+          <h2 className="text-2xl font-bold text-red-600">
+            Emergency Alert
+          </h2>
 
-    <thead>
+          <p className="text-gray-700 mt-3">
+            Critical patient routing detected near Downtown Medical Center.
+          </p>
 
-      <tr className="text-left border-b">
+          <div className="mt-6 flex gap-4">
 
-        <th className="pb-4">Patient</th>
-        <th className="pb-4">Symptoms</th>
-        <th className="pb-4">Status</th>
-        <th className="pb-4">Doctor</th>
+            <button className="bg-red-500 text-white px-6 py-3 rounded-2xl hover:bg-red-600 transition-all duration-300">
 
-      </tr>
+              Call Ambulance
 
-    </thead>
+            </button>
 
-    <tbody>
+            <button className="bg-white border border-red-300 text-red-500 px-6 py-3 rounded-2xl hover:bg-red-100 transition-all duration-300">
 
-      <tr className="border-b">
+              View Details
 
-        <td className="py-4">Ravi Kumar</td>
-        <td>Fever</td>
+            </button>
 
-        <td>
-          <span className="bg-yellow-100 text-yellow-700 px-4 py-1 rounded-full text-sm">
-            Moderate
-          </span>
-        </td>
+          </div>
 
-        <td>Dr. Sharma</td>
+        </div>
 
-      </tr>
+        {/* Bottom Grid */}
 
-      <tr className="border-b">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-        <td className="py-4">Anjali Mehta</td>
-        <td>Chest Pain</td>
+          {/* AI Routing */}
 
-        <td>
-          <span className="bg-red-100 text-red-700 px-4 py-1 rounded-full text-sm">
-            High Risk
-          </span>
-        </td>
+          <div
+            className="
+            bg-white/80
+            backdrop-blur-lg
+            rounded-3xl
+            p-8
+            shadow-lg
+            border border-white/40
+          "
+          >
 
-        <td>Dr. Verma</td>
+            <h2 className="text-2xl font-bold text-[#0F172A]">
+              AI Smart Routing
+            </h2>
 
-      </tr>
+            <p className="text-gray-500 mt-3">
+              AI automatically detects urgency levels and routes patients to the nearest healthcare specialist.
+            </p>
 
-      <tr>
+            <div className="mt-6 space-y-4">
 
-        <td className="py-4">Suresh Patel</td>
-        <td>Headache</td>
+              <div className="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                Chest Pain → Cardiology Department
+              </div>
 
-        <td>
-          <span className="bg-green-100 text-green-700 px-4 py-1 rounded-full text-sm">
-            Stable
-          </span>
-        </td>
+              <div className="bg-green-50 p-4 rounded-2xl border border-green-100">
+                Fever → General Medicine
+              </div>
 
-        <td>Dr. Rao</td>
+              <div className="bg-yellow-50 p-4 rounded-2xl border border-yellow-100">
+                Bone Fracture → Orthopedics
+              </div>
 
-      </tr>
+            </div>
 
-    </tbody>
+          </div>
 
-  </table>
+          {/* Recent Activity */}
 
-</div>
+          <div
+            className="
+            bg-white/80
+            backdrop-blur-lg
+            rounded-3xl
+            p-8
+            shadow-lg
+            border border-white/40
+          "
+          >
 
-{/* Recent Activity */}
+            <h2 className="text-2xl font-bold text-[#0F172A]">
+              Recent Activity
+            </h2>
 
-<div className="mt-10 bg-white p-6 rounded-2xl shadow-lg">
+            <div className="mt-6 space-y-5">
 
-  <h2 className="text-2xl font-bold mb-6">
-    Recent Activity
-  </h2>
+              <div className="flex justify-between items-center border-b pb-4">
 
-  <div className="space-y-5">
+                <div>
 
-    <div className="flex justify-between border-b pb-4">
+                  <p className="font-semibold">
+                    AI Report Analysis Completed
+                  </p>
 
-      <p>
-        Ravi Kumar uploaded a blood test report
-      </p>
+                  <p className="text-gray-500 text-sm">
+                    2 mins ago
+                  </p>
 
-      <span className="text-gray-400">
-        2 mins ago
-      </span>
+                </div>
 
-    </div>
+                <span className="bg-green-100 text-green-600 px-4 py-2 rounded-xl text-sm">
+                  Success
+                </span>
 
-    <div className="flex justify-between border-b pb-4">
+              </div>
 
-      <p>
-        AI classified patient as Moderate Risk
-      </p>
+              <div className="flex justify-between items-center border-b pb-4">
 
-      <span className="text-gray-400">
-        10 mins ago
-      </span>
+                <div>
 
-    </div>
+                  <p className="font-semibold">
+                    Emergency Ambulance Triggered
+                  </p>
 
-    <div className="flex justify-between">
+                  <p className="text-gray-500 text-sm">
+                    15 mins ago
+                  </p>
 
-      <p>
-        Dr. Sharma reviewed patient summary
-      </p>
+                </div>
 
-      <span className="text-gray-400">
-        25 mins ago
-      </span>
+                <span className="bg-red-100 text-red-600 px-4 py-2 rounded-xl text-sm">
+                  Critical
+                </span>
 
-    </div>
+              </div>
 
-  </div>
+              <div className="flex justify-between items-center">
 
-</div>
+                <div>
+
+                  <p className="font-semibold">
+                    New Patient Registered
+                  </p>
+
+                  <p className="text-gray-500 text-sm">
+                    30 mins ago
+                  </p>
+
+                </div>
+
+                <span className="bg-blue-100 text-blue-600 px-4 py-2 rounded-xl text-sm">
+                  New
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
-    </div>
+    </Layout>
+
   )
 }

@@ -1,107 +1,92 @@
-import { useState } from "react"
+import Layout from "../components/Layout"
 
 export default function Settings() {
 
-  const [darkMode, setDarkMode] = useState(false)
   return (
-    <div
-  className={`min-h-screen p-8 lg:p-10 transition-all duration-300 ${
-    darkMode
-      ? "bg-gray-900 text-white"
-      : "bg-gradient-to-br from-gray-100 to-blue-50 text-black"
-  }`}
->
 
-      <h1 className="text-5xl font-extrabold tracking-tight mb-10">
-        Settings
-      </h1>
+    <Layout>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="space-y-6">
 
-        {/* Profile Settings */}
+        {/* Header */}
 
-        <div className={`${darkMode ? "bg-gray-800" : "bg-white"} p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300`}>
+        <div className="flex justify-between items-center">
 
-          <h2 className="text-2xl font-bold mb-6">
-            Profile Settings
-          </h2>
+          <div>
 
-          <div className="space-y-5">
+            <h1 className="text-4xl font-bold text-[#0F172A]">
+              Settings
+            </h1>
 
-            <input
-              type="text"
-              placeholder="Doctor Name"
-              className={`w-full border border-gray-300 p-4 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 ${
-  darkMode
-    ? "bg-gray-700 text-white placeholder-gray-300"
-    : "bg-white text-black"
-}`}
-            />
-
-            <input
-              type="email"
-              placeholder="Email Address"
-              className={`w-full border border-gray-300 p-4 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 ${
-  darkMode
-    ? "bg-gray-700 text-white placeholder-gray-300"
-    : "bg-white text-black"
-}`}
-            />
-
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-700 hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300">
-
-              Save Changes
-
-            </button>
+            <p className="text-gray-500 mt-2">
+              Manage your healthcare dashboard preferences.
+            </p>
 
           </div>
 
         </div>
 
-        {/* App Preferences */}
+        {/* Appearance */}
 
-        <div className={`${darkMode ? "bg-gray-800" : "bg-white"} p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300`}>
+        <div
+          className="
+          bg-white/80
+          backdrop-blur-lg
+          rounded-3xl
+          p-6
+          shadow-lg
+          border border-white/40
+        "
+        >
 
-          <h2 className="text-2xl font-bold mb-6">
-            App Preferences
+          <h2 className="text-2xl font-bold text-[#0F172A]">
+            Appearance
           </h2>
 
-          <div className="space-y-5">
+          <p className="text-gray-500 mt-2">
+            Customize dashboard theme and accessibility.
+          </p>
 
-            <div className="flex items-center justify-between">
+          <button className="mt-6 bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-6 py-3 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300">
 
-              <p>Email Notifications</p>
+            Toggle Dark Mode
 
-              <input type="checkbox" />
+          </button>
 
-            </div>
+        </div>
 
-            <div className="flex items-center justify-between">
+        {/* Security */}
 
-              <p>Dark Mode</p>
+        <div
+          className="
+          bg-white/80
+          backdrop-blur-lg
+          rounded-3xl
+          p-6
+          shadow-lg
+          border border-white/40
+        "
+        >
 
-              <input
-                type="checkbox"
-                checked={darkMode}
-                onChange={() => setDarkMode(!darkMode)}
-              />
+          <h2 className="text-2xl font-bold text-[#0F172A]">
+            Security
+          </h2>
 
-            </div>
+          <p className="text-gray-500 mt-2">
+            Manage passwords and authentication settings.
+          </p>
 
-            <div className="flex items-center justify-between">
+          <button className="mt-6 bg-[#0F172A] text-white px-6 py-3 rounded-2xl hover:bg-[#1E293B] transition-all duration-300">
 
-              <p>Auto Report Sync</p>
+            Change Password
 
-              <input type="checkbox" />
-
-            </div>
-
-          </div>
+          </button>
 
         </div>
 
       </div>
 
-    </div>
+    </Layout>
+
   )
 }

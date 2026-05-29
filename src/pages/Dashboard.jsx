@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { patients } from "../data/mockData";
 import StatsCards from "../components/dashboard/StatsCards";
 import AnalyticsChart from "../components/dashboard/AnalyticsChart";
@@ -28,6 +28,12 @@ export default function Dashboard() {
         </div>
 
         <div className="flex flex-wrap gap-3">
+
+          <Link to="/emergency">
+  <button className="rounded-3xl bg-gradient-to-r from-red-500 to-orange-400 px-5 py-3 text-sm font-semibold text-white shadow-xl transition hover:scale-105">
+    Emergency Action
+  </button>
+</Link>
           <button
             onClick={() => setShowAssigned((current) => !current)}
             className="rounded-3xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"

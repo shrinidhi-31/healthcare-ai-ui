@@ -1,23 +1,37 @@
+import {
+  Bell,
+  Search,
+  UserCircle2,
+  ChevronRight,
+  Menu,
+  ArrowLeft,
+} from "lucide-react";
 
-import { Bell, Search, UserCircle2, ChevronRight } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+
 import { patientNotifications } from "../../data/mockData";
 import Timeline from "../dashboard/Timeline";
 
-
-export default function Topbar() {
+export default function Topbar({ onMenuClick }) {
   const navigate = useNavigate();
   const location = useLocation();
+
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showNotifications, setShowNotifications] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+
   const notificationsRef = useRef(null);
 
-  const unreadCount = patientNotifications.filter((n) => n.unread).length;
+  const unreadCount = patientNotifications.filter(
+    (n) => n.unread
+  ).length;
 
   useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 60000);
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000);
+
     return () => clearInterval(timer);
   }, []);
 
@@ -25,132 +39,308 @@ export default function Topbar() {
     if (!showNotifications) return;
 
     const handleClickOutside = (event) => {
-      if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
-        setShowNotifications(false);
-      }
-    };
-
-    const handleEscape = (event) => {
-      if (event.key === "Escape") {
+      if (
+        notificationsRef.current &&
+        !notificationsRef.current.contains(event.target)
+      ) {
         setShowNotifications(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscape);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
     };
   }, [showNotifications]);
 
   const getPageLabel = (pathname) => {
     const paths = {
-      '/': 'Dashboard',
-      '/active-cases': 'Active Cases',
-      '/alerts': 'High Risk Alerts',
-      '/patients': 'Patient List',
-      '/decision-panel': 'Decision Panel',
-      '/profile': 'Profile',
+      "/dashboard": "Dashboard",
+      "/active-cases": "Active Cases",
+      "/alerts": "High Risk Alerts",
+      "/patients": "Patients",
+      "/decision-panel": "Decision Panel",
+      "/profile": "Profile",
+      "/notifications": "Notifications",
+      "/settings": "Settings",
+      "/help": "Help",
+      "/emergency": "Emergency",
+      "/support": "Support",
     };
-    return paths[pathname] || 'Dashboard';
+
+    return paths[pathname] || "Dashboard";
   };
 
   const handleSearch = (event) => {
     event.preventDefault();
-    const trimmedSearch = searchTerm.trim();
 
-    if (!trimmedSearch) return;
+    const trimmed = searchTerm.trim();
 
-    navigate("/patients", { state: { searchTerm: trimmedSearch } });
+    if (!trimmed) return;
+
+    navigate("/patients", {
+      state: { searchTerm: trimmed },
+    });
+
     setSearchTerm("");
   };
 
   return (
-    <div className="flex items-center justify-between gap-4 rounded-[32px] bg-white px-6 py-6 shadow-sm ring-1 ring-slate-200 mb-8">
-      {/* LEFT - SEARCH, BREADCRUMB & DATE/TIME */}
-      <div className="flex items-center gap-3 flex-1">
-        <form onSubmit={handleSearch} className="flex max-w-md items-center gap-2 rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+    <div
+      className="
+        flex
+        items-center
+        justify-between
+        gap-4
+        rounded-[32px]
+        bg-white
+        px-6
+        py-5
+        shadow-sm
+        ring-1
+        ring-slate-200
+        mb-8
+      "
+    >
+      {/* LEFT SECTION */}
+      <div className="flex items-center gap-4 flex-1">
+
+        {/* HAMBURGER */}
+        <button
+          onClick={onMenuClick}
+          className="
+            rounded-2xl
+            bg-slate-100
+            p-3
+            hover:bg-slate-200
+            transition
+          "
+        >
+          <Menu className="h-5 w-5 text-slate-700" />
+        </button>
+
+        {/* BACK BUTTON */}
+        <button
+          onClick={() => navigate(-1)}
+          className="
+            rounded-2xl
+            bg-slate-100
+            p-3
+            hover:bg-slate-200
+            transition
+          "
+        >
+          <ArrowLeft className="h-5 w-5 text-slate-700" />
+        </button>
+
+        {/* SEARCH */}
+        <form
+          onSubmit={handleSearch}
+          className="
+            hidden md:flex
+            items-center
+            gap-2
+            rounded-3xl
+            border
+            border-slate-200
+            bg-slate-50
+            px-4
+            py-3
+            max-w-md
+            w-full
+          "
+        >
           <Search className="h-4 w-4 text-slate-400" />
+
           <input
             type="text"
             value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
+            onChange={(event) =>
+              setSearchTerm(event.target.value)
+            }
             placeholder="Search patients"
-            className="w-full bg-transparent outline-none placeholder:text-slate-400"
+            className="
+              w-full
+              bg-transparent
+              outline-none
+              text-slate-700
+              placeholder:text-slate-400
+            "
           />
         </form>
 
-        <div className="flex items-center gap-2 text-sm text-slate-600">
-          <span>Dashboard</span>
-          <ChevronRight size={16} className="text-slate-400" />
-          <span className="font-semibold text-slate-900">{getPageLabel(location.pathname)}</span>
-        </div>
-        <div className="ml-4 text-xs text-slate-500">
-          {currentTime.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} • {currentTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+        {/* BREADCRUMB */}
+        <div className="hidden lg:flex items-center gap-2 text-sm">
+          <span className="text-slate-500">
+            Dashboard
+          </span>
+
+          <ChevronRight
+            size={16}
+            className="text-slate-400"
+          />
+
+          <span className="font-semibold text-slate-900">
+            {getPageLabel(location.pathname)}
+          </span>
         </div>
       </div>
 
-      {/* RIGHT - ACTIONS */}
+      {/* RIGHT SECTION */}
       <div className="flex items-center gap-4 relative">
+
+        {/* TIME */}
+        <div className="hidden xl:block text-xs text-slate-500">
+          {currentTime.toLocaleDateString("en-US", {
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+          })}
+
+          {" • "}
+
+          {currentTime.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </div>
+
+        {/* NOTIFICATIONS */}
         <button
-          onClick={() => setShowNotifications((v) => !v)}
-          className="relative inline-flex items-center gap-2 rounded-3xl bg-slate-100 hover:bg-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition"
-          aria-label="Open notifications"
+          onClick={() =>
+            setShowNotifications((v) => !v)
+          }
+          className="
+            relative
+            rounded-2xl
+            bg-slate-100
+            p-3
+            hover:bg-slate-200
+            transition
+          "
         >
-          <Bell className="h-5 w-5" />
+          <Bell className="h-5 w-5 text-slate-700" />
+
           {unreadCount > 0 && (
-            <span className="absolute -top-1 -right-1 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
+            <span
+              className="
+                absolute
+                -top-1
+                -right-1
+                flex
+                h-5
+                w-5
+                items-center
+                justify-center
+                rounded-full
+                bg-red-500
+                text-xs
+                font-bold
+                text-white
+              "
+            >
               {unreadCount}
             </span>
           )}
         </button>
 
+        {/* PROFILE */}
+        <button
+          onClick={() => navigate("/profile")}
+          className="
+            hidden md:flex
+            items-center
+            gap-3
+            rounded-3xl
+            bg-slate-100
+            px-4
+            py-2
+            hover:bg-slate-200
+            transition
+          "
+        >
+          <UserCircle2 className="h-7 w-7 text-slate-700" />
+
+          <div className="text-left">
+            <p className="text-sm font-semibold text-slate-900">
+              Dr. Sharma
+            </p>
+
+            <p className="text-xs text-slate-500">
+              Cardiologist
+            </p>
+          </div>
+        </button>
+
+        {/* NOTIFICATION DROPDOWN */}
         {showNotifications && (
-          <div ref={notificationsRef} className="absolute right-0 top-12 z-50 w-[420px] max-w-[90vw]">
-            <div className="rounded-[32px] bg-white p-0 shadow-2xl ring-1 ring-slate-200">
-              <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-                <div>
-                  <p className="font-semibold text-slate-900 text-lg">Real-Time Notifications</p>
-                  <p className="mt-1 text-xs text-slate-500">{unreadCount} unread updates available</p>
-                </div>
-                <button
-                  onClick={() => setShowNotifications(false)}
-                  className="text-slate-400 hover:text-slate-900 p-1 rounded-full"
-                  aria-label="Close notifications"
-                >
-                  ×
-                </button>
+          <div
+            ref={notificationsRef}
+            className="
+              absolute
+              right-0
+              top-16
+              z-50
+              w-[420px]
+              max-w-[90vw]
+            "
+          >
+            <div
+              className="
+                rounded-[32px]
+                bg-white
+                shadow-2xl
+                ring-1
+                ring-slate-200
+              "
+            >
+              <div className="border-b border-slate-100 px-6 py-4">
+                <p className="text-lg font-semibold text-slate-900">
+                  Notifications
+                </p>
+
+                <p className="text-xs text-slate-500 mt-1">
+                  {unreadCount} unread updates
+                </p>
               </div>
+
               <div className="max-h-[60vh] overflow-y-auto px-6 py-4">
-                <Timeline compact showHeader={false} maxItems={6} />
+                <Timeline
+                  compact
+                  showHeader={false}
+                  maxItems={6}
+                />
               </div>
-              <div className="border-t border-slate-100 px-6 py-4">
+
+              <div className="border-t border-slate-100 p-4">
                 <button
                   onClick={() => {
                     setShowNotifications(false);
                     navigate("/notifications");
                   }}
-                  className="w-full rounded-3xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                  className="
+                    w-full
+                    rounded-3xl
+                    bg-slate-950
+                    px-4
+                    py-3
+                    text-sm
+                    font-semibold
+                    text-white
+                    hover:bg-slate-800
+                    transition
+                  "
                 >
-                  Open full notifications center
+                  Open Notifications
                 </button>
               </div>
             </div>
           </div>
         )}
-
-        <button
-          onClick={() => navigate("/profile")}
-          className="inline-flex items-center gap-3 rounded-3xl bg-slate-100 hover:bg-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition"
-        >
-          <UserCircle2 className="h-6 w-6 text-slate-600" />
-          <div className="text-left">
-            <p className="text-sm font-semibold text-slate-900">Dr. Sharma</p>
-            <p className="text-xs text-slate-600">Cardiologist</p>
-          </div>
-        </button>
       </div>
     </div>
   );

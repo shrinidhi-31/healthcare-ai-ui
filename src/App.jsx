@@ -25,6 +25,11 @@ import Notifications from "./pages/Notifications";
 import SettingsPage from "./pages/SettingsPage";
 import Help from "./pages/Help";
 import DecisionPanel from "./pages/DecisionPanel";
+import Emergency from "./pages/Emergency";
+import AmbulanceTracking from "./pages/AmbulanceTracking";
+import Support from "./pages/Support";
+import About from "./pages/About";
+import EditProfile from "./pages/EditProfile";
 
 export default function App() {
   return (
@@ -50,7 +55,7 @@ function DashboardShell() {
         style={{ marginLeft: sidebarCollapsed ? "5rem" : "18rem" }}
       >
 
-        <Topbar />
+        <Topbar onMenuClick={() => setSidebarCollapsed((current) => !current)} />
 
         <Routes>
 
@@ -89,6 +94,16 @@ function DashboardShell() {
           <Route path="/help" element={<Help />} />
 
           <Route path="/reports/:id" element={<Reports />} />
+
+          <Route path="/emergency" element={<Emergency />} />
+
+          <Route path="/ambulance-tracking" element={<AmbulanceTracking />} />
+
+          <Route path="/support" element={<Support />} />
+
+          <Route path="/about" element={<About />} />
+
+          <Route path="/edit-profile" element={<EditProfile />} />
 
           <Route path="*" element={<div className="rounded-[32px] bg-white p-10 text-center shadow-sm ring-1 ring-slate-200">
             <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Navigation</p>

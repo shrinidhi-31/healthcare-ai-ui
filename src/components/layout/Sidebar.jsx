@@ -15,6 +15,10 @@ import {
   Gauge,
   ChevronLeft,
   UserCircle,
+  Ambulance,
+  LifeBuoy,
+  Info,
+  UserCog,
 } from "lucide-react";
 
 import { Link, useLocation } from "react-router-dom";
@@ -30,12 +34,42 @@ export default function Sidebar({ collapsed, onToggle }) {
     {
       section: "MAIN",
       items: [
-        {
-          name: "Dashboard",
-          icon: <LayoutDashboard size={20} />,
-          path: "/",
-        },
-      ],
+  {
+    name: "Dashboard",
+    icon: <LayoutDashboard size={20} />,
+    path: "/dashboard",
+  },
+
+  {
+    name: "Emergency",
+    icon: <AlertTriangle size={20} />,
+    path: "/emergency",
+  },
+
+  {
+    name: "Ambulance",
+    icon: <Ambulance size={20} />,
+    path: "/ambulance-tracking",
+  },
+
+  {
+    name: "Support",
+    icon: <LifeBuoy size={20} />,
+    path: "/support",
+  },
+
+  {
+    name: "About",
+    icon: <Info size={20} />,
+    path: "/about",
+  },
+
+  {
+    name: "Edit Profile",
+    icon: <UserCog size={20} />,
+    path: "/edit-profile",
+  },
+],
     },
 
     {
@@ -141,30 +175,46 @@ export default function Sidebar({ collapsed, onToggle }) {
   ];
 
   return (
-    <div className={`${collapsed ? 'w-20' : 'w-72'} h-screen bg-slate-950 text-slate-100 fixed left-0 top-0 p-6 overflow-y-auto border-r border-slate-800 transition-all duration-300 flex flex-col`}>
+    <div className={`${collapsed ? 'w-20' : 'w-72'} h-screen bg-slate-950 text-slate-100 fixed left-0 top-0 p-6 overflow-x-hidden overflow-y-auto border-r border-slate-800 transition-all duration-300 flex flex-col`}>
 
       {/* HEADER WITH COLLAPSE TOGGLE */}
       <div className="flex items-center justify-between mb-10">
-        {!collapsed && <div>
-          <h1 className="text-3xl font-bold">
-            MediAssist
-          </h1>
-          <p className="text-blue-200 text-xs">
-            AI Health Triage
-          </p>
-        </div>}
-        
-        <button
-          onClick={onToggle}
-          className="p-2 hover:bg-slate-800 rounded-lg transition text-slate-400 hover:text-white"
-          title={collapsed ? "Expand" : "Collapse"}
-        >
-          <ChevronLeft size={20} className={collapsed ? "rotate-180" : ""} />
-        </button>
+
+  <div className="flex items-center gap-3">
+
+    <div className="w-10 h-10 rounded-2xl bg-cyan-400 flex items-center justify-center text-black font-bold text-lg">
+      M
+    </div>
+
+    {!collapsed && (
+      <div>
+        <h1 className="text-3xl font-bold">
+          MediAssist
+        </h1>
+
+        <p className="text-blue-200 text-xs">
+          AI Health Triage
+        </p>
       </div>
+    )}
+
+  </div>
+
+  <button
+    onClick={onToggle}
+    className="p-2 hover:bg-slate-800 rounded-lg transition text-slate-400 hover:text-white"
+    title={collapsed ? "Expand" : "Collapse"}
+  >
+    <ChevronLeft
+      size={20}
+      className={`transition-transform duration-300 ${collapsed ? "rotate-180" : ""}`}
+    />
+  </button>
+
+</div>
 
       {/* MENU */}
-      <div className="space-y-8 flex-1 overflow-y-auto">
+      <div className="space-y-8 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
         {menuItems.map((section) => (
           <div key={section.section}>
             {!collapsed && <h2 className="text-xs uppercase tracking-[0.2em] text-slate-500 mb-4 font-semibold">
@@ -182,7 +232,9 @@ export default function Sidebar({ collapsed, onToggle }) {
                   <Link
                     key={item.name}
                     to={item.path}
-                    className={`group flex items-center justify-between gap-3 rounded-3xl px-4 py-3 transition duration-200 relative ${
+                    className={`group flex items-center ${
+  collapsed ? "justify-center" : "justify-between"
+} gap-3 rounded-3xl px-4 py-3 transition duration-200 relative ${
                       isActive
                         ? "bg-slate-800 text-white shadow-lg shadow-cyan-500/10"
                         : "text-slate-300 hover:bg-slate-900 hover:text-white"
@@ -195,7 +247,7 @@ export default function Sidebar({ collapsed, onToggle }) {
                       {!collapsed && <span className="text-sm">{item.name}</span>}
                     </div>
 
-                    {item.badge && (
+                    {item.badge && !collapsed && (
                       <span className={`${
                         isActive ? 'bg-cyan-500 text-slate-950' : 'bg-red-500 text-white'
                       } text-xs px-2 py-1 rounded-full font-semibold`}>

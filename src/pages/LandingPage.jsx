@@ -17,11 +17,11 @@ export default function LandingPage() {
           MediAssist
         </h1>
 
-        <Link to="/role">
-          <button className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-400 px-6 py-3 shadow-lg transition-all duration-300 hover:scale-105">
-            Sign In
-          </button>
-        </Link>
+        <Link to="/signin">
+  <button className="rounded-2xl bg-white/10 border border-white/20 px-6 py-3 shadow-lg transition-all duration-300 hover:scale-105">
+    Sign In
+  </button>
+</Link>
       </nav>
 
       {/* Hero Section */}

@@ -43,6 +43,9 @@ import PatientProfilePage from "./pages/PatientProfilePage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PatientLayout from "./pages/PatientLayout";
 import PatientSettings from "./pages/PatientSettings";
+import SignIn from "./pages/SignIn";
+import DoctorSignIn from "./pages/DoctorSignIn";
+import PatientSignIn from "./pages/PatientSignIn";
 
 export default function App() {
   return (
@@ -52,6 +55,12 @@ export default function App() {
         {/* PUBLIC ROUTES */}
 
         <Route path="/" element={<LandingPage />} />
+
+        <Route path="/signin" element={<SignIn />} />
+
+        <Route path="/doctor-signin" element={<DoctorSignIn />} />
+
+        <Route path="/patient-signin" element={<PatientSignIn />} />
 
         <Route path="/role" element={<RoleSelection />} />
 

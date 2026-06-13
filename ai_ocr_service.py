@@ -6,7 +6,8 @@ import os
 import time
 import uvicorn
 import requests
-import base64
+from io import BytesIO
+from PIL import Image
 
 app = FastAPI(title="MedVerify AI/OCR Service", version="1.0.0")
 
@@ -27,25 +28,6 @@ class SymptomRequest(BaseModel):
 class SummarizeRequest(BaseModel):
     ocr_text: str
 
-def ocr_cloud_api(image_bytes):
-    """Use free OCR API (no local dependencies)"""
-    try:
-        # OCR.space free API (100 requests/day free)
-        response = requests.post(
-            'https://api.ocr.space/parse/image',
-            files={'file': ('image.jpg', image_bytes)},
-            data={'apikey': 'helloworld', 'language': 'eng', 'isOverlayRequired': False},
-            timeout=30
-        )
-        data = response.json()
-        if data.get('IsErroredOnProcessing') == False:
-            text = data['ParsedResults'][0]['ParsedText']
-            return text
-        return ""
-    except Exception as e:
-        print(f"OCR error: {e}")
-        return ""
-
 @app.get("/health")
 def health():
     return {"status": "ok", "version": "1.0.0", "ocr_loaded": True}
@@ -56,10 +38,22 @@ async def extract_ocr(file: UploadFile = File(...)):
         raise HTTPException(400, "File must be an image")
     
     contents = await file.read()
-    extracted_text = ocr_cloud_api(contents)
     
-    if not extracted_text:
-        extracted_text = "Unable to extract text from image"
+    # Try OCR.space free API
+    try:
+        response = requests.post(
+            'https://api.ocr.space/parse/image',
+            files={'file': ('image.jpg', contents)},
+            data={'apikey': 'helloworld', 'language': 'eng'},
+            timeout=30
+        )
+        data = response.json()
+        if data.get('IsErroredOnProcessing') == False:
+            extracted_text = data['ParsedResults'][0]['ParsedText']
+        else:
+            extracted_text = "OCR processing failed"
+    except Exception as e:
+        extracted_text = f"OCR error: {str(e)}"
     
     emergency_keywords = ["chest pain", "difficulty breathing", "severe bleeding", 
                          "heart attack", "stroke", "unconscious", "emergency"]
